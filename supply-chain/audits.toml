@@ -1,0 +1,2 @@
+# Local audits — criteria documentation for crates you have reviewed.
+# `cargo vet suggest` proposes audits for unvetted imports.

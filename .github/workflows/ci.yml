@@ -1,0 +1,39 @@
+# Estate tier-a gate matrix + house extras (MSRV, contract).
+# The monthly cron catches ecosystem bitrot push/PR never see.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 1 * *" # monthly bitrot
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    uses: WyattAu/engineering-standards/.github/workflows/rust-kit.yml@main
+    with:
+      tier: a
+      all-features: true
+      loom: true
+      miri: true
+
+  msrv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - run: cargo check --workspace --all-features --locked
+
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/check-contract.sh

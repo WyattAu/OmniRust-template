@@ -1,0 +1,28 @@
+# Weekly vet-imports refresh: Dependabot bumps Monday; this regenerates the
+# committed supply-chain/imports.lock Tuesday and opens one PR with the diff.
+name: vet-refresh
+
+on:
+  schedule:
+    - cron: "0 4 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-vet
+      - run: cargo vet regenerate imports && cargo vet fix-imports
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: refresh cargo-vet imports"
+          title: "chore: weekly vet-imports refresh"
+          branch: vet-refresh
+          delete-branch: true

@@ -1,0 +1,8 @@
+/target
+/mutants-out
+Cargo.lock.bak
+.direnv/
+/result
+result
+.env
+*.local
