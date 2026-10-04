@@ -29,7 +29,9 @@ module_name_repetitions = "allow"
 multiple_crate_versions = "allow"
 
 [workspace.dependencies]
-omni-core = { path = "crates/omni-core" }
+# Internal deps carry explicit versions: workspace path + version keeps
+# cargo-deny's wildcard check green and makes crates.io publishing work.
+omni-core = { path = "crates/omni-core", version = "0.1.0" }
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal"] }
 axum = "0.8"
 serde = { version = "1", features = ["derive"] }

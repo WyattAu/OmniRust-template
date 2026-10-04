@@ -43,6 +43,7 @@ fn run(bin: &str, args: &[&str]) {
     }
 }
 
+// Coverage: `sh` delegates to `run` (see above).
 fn sh(script: &str) {
     run("bash", &[script]);
 }

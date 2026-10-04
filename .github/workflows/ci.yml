@@ -24,6 +24,9 @@ jobs:
       all-features: true
       loom: true
       miri: true
+      # ADR-0005: process surfaces (xtask runner, service main) are excluded
+      # from the line gate; the lib surface stays at >=90%.
+      coverage-ignore-regex: xtask/src|omni-service/src/main.rs
 
   msrv:
     runs-on: ubuntu-latest

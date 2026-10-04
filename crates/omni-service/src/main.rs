@@ -1,11 +1,18 @@
 //! Example service binary demonstrating the estate's HTTP posture: axum +
 //! liveness/readiness routes + graceful shutdown + request-scoped tracing.
 //! Swap the placeholder route for your domain; keep the posture.
+//!
+//! The port is env-configurable (`OMNI_PORT`) so the integration test can
+//! spawn the real binary without collisions.
 
 use std::net::SocketAddr;
 
 use axum::routing::get;
 use axum::{Json, Router};
+
+// Coverage (ADR-0005): this file is the process surface — exercised by the
+// spawned-binary smoke test but excluded from the line-coverage gate
+// because a killed child emits no LLVM profile.
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -17,7 +24,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/healthz", get(healthz))
         .route("/readyz", get(readyz));
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], 8080));
+    let port: u16 = std::env::var("OMNI_PORT")
+        .ok()
+        .and_then(|p| p.parse().ok())
+        .unwrap_or(8080);
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
     let listener = tokio::net::TcpListener::bind(addr).await?;
     tracing::info!("listening on {addr}");
 

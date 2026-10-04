@@ -16,6 +16,7 @@ std = []
 
 [dev-dependencies]
 proptest.workspace = true
+criterion.workspace = true
 
 [dependencies]
 thiserror.workspace = true
@@ -25,3 +26,7 @@ loom = "0.7"
 
 [lints]
 workspace = true
+
+[[bench]]
+name = "parse_bench"
+harness = false

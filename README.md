@@ -29,7 +29,7 @@ VS Code) — part of the [WyattAu Omni template family](https://github.com/Wyatt
 | `make test` | `cargo nextest run --workspace --all-features --locked` |
 | `make lint` | clippy, tier-a posture (`-D warnings`, pedantic, panic family denied) |
 | `make fmt` / `fmt-check` | rustfmt |
-| `make coverage` | llvm-cov, `--fail-under 90` |
+| `make coverage` | llvm-cov, ≥90% lines (process surfaces excluded — ADR-0005) |
 | `make vet` | cargo-vet supply-chain check |
 | `make semver` | semver-checks vs latest tag |
 | `make mutants` | cargo-mutants (weekly policy, MUTATION.md) |
@@ -57,7 +57,7 @@ docs/adr/             decision log (start at 0000)
 |---|---|
 | build/test `--locked` (all-features + no-default-features) | ✅ |
 | clippy `-D warnings` + pedantic + unwrap/indexing/panic denied | ✅ |
-| llvm-cov | ≥ 90% |
+| llvm-cov | ≥ 90% lines (process surfaces excluded via `coverage-ignore-regex`, ADR-0005) |
 | loom model checking (`--cfg loom`) | ✅ |
 | miri (nightly) | ✅ |
 | cargo-deny (advisories/licenses/bans) | ✅ |

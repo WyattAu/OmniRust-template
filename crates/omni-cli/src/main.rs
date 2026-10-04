@@ -1,5 +1,6 @@
 //! Example CLI: parse a `PubId` and echo it normalized. Demonstrates the
-//! workspace pattern — binaries compose on crates, never duplicate them.
+//! workspace pattern — binaries compose on crates, and the logic lives in
+//! `lib.rs` so it stays testable.
 
 use clap::Parser;
 
@@ -13,10 +14,10 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    match omni_core::text::PubId::parse(&args.id) {
-        Ok(id) => println!("valid: {id}"),
-        Err(e) => {
-            eprintln!("error: {e}");
+    match omni_cli::run(&args.id) {
+        Ok(line) => println!("{line}"),
+        Err(line) => {
+            eprintln!("{line}");
             std::process::exit(1);
         }
     }
