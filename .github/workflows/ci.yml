@@ -40,3 +40,22 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: ./scripts/check-contract.sh
+
+  # Loop 1: macOS + Windows legs — the shared gate runs on Linux; these
+  # prove the build+test surface on the other platforms (advisory while
+  # platform-specific findings are triaged).
+  cross-platform:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo check --workspace --all-features --locked
+      - run: cargo test --workspace --all-features --locked
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo check --workspace --all-features --locked
+      - run: cargo test --workspace --all-features --locked
