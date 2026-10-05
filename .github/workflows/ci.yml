@@ -32,7 +32,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@1.120.0
+      # Dependabot misreads the ref as an action version (1.85→1.120 broke
+      # this job); master + toolchain input is the un-bumpable form.
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: "1.85.0"
       - run: cargo check --workspace --all-features --locked
 
   contract:
