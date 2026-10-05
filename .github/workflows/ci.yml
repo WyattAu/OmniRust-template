@@ -65,3 +65,14 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
+
+  # Loop 2: performance budget. Advisory for one loop, then graduates to a
+  # blocking gate (LOOP.md graduation policy). Same scripts/ commands the
+  # developer runs locally - never a CI-only measurement path.
+  perf:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - run: make bench

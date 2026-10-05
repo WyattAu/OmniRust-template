@@ -1,7 +1,7 @@
 # Thin wrapper over scripts/ and cargo — the same verbs everywhere. CI runs
 # these same commands via the estate reusable workflow (tier a).
 
-.PHONY: build test lint fmt fmt-check coverage mutants vet semver docs contract ci clean
+.PHONY: bench bench-update build test lint fmt fmt-check coverage mutants vet semver docs contract ci clean
 
 build:
 	cargo build --workspace --all-features --locked
@@ -38,6 +38,12 @@ contract:
 
 ## What CI gates before merge (mirror of .github/workflows/ci.yml):
 ci: contract fmt-check lint test vet
+
+bench:
+	./scripts/bench-budget.sh
+
+bench-update:
+	./scripts/bench-budget.sh --update
 
 clean:
 	cargo clean
