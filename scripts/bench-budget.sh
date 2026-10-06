@@ -37,7 +37,7 @@ for target in "${bench_targets[@]}"; do
     --warm-up-time 0.5 --measurement-time 1.0 --sample-size 10 >/dev/null
 done
 
-python3 - <<'PYEMIT' > "$CURRENT"
+python3 - <<'PYEMIT' >"$CURRENT"
 import json
 import pathlib
 
