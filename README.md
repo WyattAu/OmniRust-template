@@ -120,3 +120,5 @@ and compares artifact hashes. Toolchains that are deterministic gate the build;
 toolchains that embed timestamps or build ids by design report the difference
 and explain why, rather than pretending to be reproducible. Rationale and the
 per-toolchain split: `docs/adr/0008-determinism-verification.md`.
+
+Copier update channel verified end-to-end (loop 12).
