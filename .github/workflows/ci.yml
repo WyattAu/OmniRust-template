@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   quality:
-    uses: WyattAu/engineering-standards/.github/workflows/rust-kit.yml@main
+    uses: WyattAu/engineering-standards/.github/workflows/rust-kit.yml@e3a75c976fad58db1a68523cb525052cdcd2da0e # main
     with:
       tier: a
       all-features: true
@@ -31,10 +31,10 @@ jobs:
   msrv:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       # Dependabot misreads the ref as an action version (1.85→1.120 broke
       # this job); master + toolchain input is the un-bumpable form.
-      - uses: dtolnay/rust-toolchain@master
+      - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master
         with:
           toolchain: "1.85.0"
       - run: cargo check --workspace --all-features --locked
@@ -42,7 +42,7 @@ jobs:
   contract:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - run: ./scripts/check-contract.sh
 
   # Loop 1: macOS + Windows legs — the shared gate runs on Linux; these
@@ -55,14 +55,14 @@ jobs:
         os: [macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
 
@@ -72,8 +72,8 @@ jobs:
   perf:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: make bench
 
   # Loop 3: determinism verification - blocking since it stayed green for a
@@ -83,6 +83,6 @@ jobs:
   repro:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: make repro
