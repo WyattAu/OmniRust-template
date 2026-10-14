@@ -36,6 +36,12 @@ jobs:
           persist-credentials: false
       # Dependabot misreads the ref as an action version (1.85→1.120 broke
       # this job); master + toolchain input is the un-bumpable form.
+      # zizmor: ignore[impostor-commit] -- dtolnay/rust-toolchain publishes no
+      # immutable release SHAs: `stable`/`nightly`/`master` are moving branches.
+      # Pinning the SHA keeps the toolchain reproducible; the online audit
+      # cannot verify a branch head against a tag, so it reports an impostor.
+      # Accepted deviation, recorded in engineering-standards PITFALLS.md.
+
       - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master
         with:
           toolchain: "1.85.0"
@@ -62,12 +68,30 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
+      # zizmor: ignore[impostor-commit] -- dtolnay/rust-toolchain publishes no
+      # immutable release SHAs: `stable`/`nightly`/`master` are moving branches.
+      # Pinning the SHA keeps the toolchain reproducible; the online audit
+      # cannot verify a branch head against a tag, so it reports an impostor.
+      # Accepted deviation, recorded in engineering-standards PITFALLS.md.
+
       - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
+      # zizmor: ignore[impostor-commit] -- dtolnay/rust-toolchain publishes no
+      # immutable release SHAs: `stable`/`nightly`/`master` are moving branches.
+      # Pinning the SHA keeps the toolchain reproducible; the online audit
+      # cannot verify a branch head against a tag, so it reports an impostor.
+      # Accepted deviation, recorded in engineering-standards PITFALLS.md.
+
       - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
+      # zizmor: ignore[impostor-commit] -- dtolnay/rust-toolchain publishes no
+      # immutable release SHAs: `stable`/`nightly`/`master` are moving branches.
+      # Pinning the SHA keeps the toolchain reproducible; the online audit
+      # cannot verify a branch head against a tag, so it reports an impostor.
+      # Accepted deviation, recorded in engineering-standards PITFALLS.md.
+
       - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
@@ -81,6 +105,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
+      # zizmor: ignore[impostor-commit] -- dtolnay/rust-toolchain publishes no
+      # immutable release SHAs: `stable`/`nightly`/`master` are moving branches.
+      # Pinning the SHA keeps the toolchain reproducible; the online audit
+      # cannot verify a branch head against a tag, so it reports an impostor.
+      # Accepted deviation, recorded in engineering-standards PITFALLS.md.
+
       - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: make bench
 
@@ -94,6 +124,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
+      # zizmor: ignore[impostor-commit] -- dtolnay/rust-toolchain publishes no
+      # immutable release SHAs: `stable`/`nightly`/`master` are moving branches.
+      # Pinning the SHA keeps the toolchain reproducible; the online audit
+      # cannot verify a branch head against a tag, so it reports an impostor.
+      # Accepted deviation, recorded in engineering-standards PITFALLS.md.
+
       - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
       - run: make repro
 
