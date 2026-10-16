@@ -37,7 +37,7 @@ jobs:
       # Dependabot misreads the ref as an action version (1.85→1.120 broke
       # this job); master + toolchain input is the un-bumpable form.
 
-      - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # master
         with:
           toolchain: "1.85.0"
       - run: cargo check --workspace --all-features --locked
@@ -64,15 +64,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
 
-      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
 
-      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # stable
       - run: cargo check --workspace --all-features --locked
       - run: cargo test --workspace --all-features --locked
 
@@ -86,7 +86,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # stable
       - run: make bench
 
   # Loop 3: determinism verification - blocking since it stayed green for a
@@ -100,7 +100,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # stable
       - run: make repro
 
   # Phase 1 of copier adoption (ADR-0001, engineering-standards): copying this
